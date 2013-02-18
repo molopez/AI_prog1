@@ -82,7 +82,9 @@ void Map::mapCities()
 	string cityName, temp;
 	int locX, locY; 
 
-	cout << "locations Building:" << endl;
+	//cout << "locations Building:" << endl;
+	//Building vector of cities
+	//initializing the cities using the conections file first
 	for (vector<string>::iterator it = locations.begin() ; it != locations.end(); it++)
 	{
 		temp = *it;
@@ -99,15 +101,15 @@ void Map::mapCities()
 		City city(cityName, locX, locY);
 		cities.push_back(city);
 		
-		cout << cityName << " " << locX << " " << locY << endl;
+		//cout << cityName << " " << locX << " " << locY << endl;
 	}
 
-	/*cout << "connections contains:" << endl;
-		for (vector<string>::iterator it = connections.begin() ; it != connections.end(); ++it)
-			{
-				cout << ' ' << *it;
-				cout << '\n';
-			}*/
+	/*cout << "verify vector of cities created properly:" << endl;
+	for (vector<City>::iterator it = cities.begin() ; it != cities.end(); ++it)
+	{
+		(*it).toString();
+	}*/
+
 }
 
 int Map::findPath(string start, string finish, string omit)
