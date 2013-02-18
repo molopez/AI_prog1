@@ -41,4 +41,6 @@ public:
 	//Display the shortest path from one city to another
 	//if one is found
 	void showPath();	
+
+	void printMap();
 };

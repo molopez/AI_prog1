@@ -22,6 +22,8 @@ int main ( )
 
 	map.mapCities();
 
+	map.printMap();
+
 	//myFile.open(fileName);
 
 	//if(!myFile) //verify file could be opened
