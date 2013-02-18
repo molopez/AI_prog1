@@ -54,3 +54,7 @@ int  City::calculateDistance(int x, int y)
 	return sqrt(pow(xCoordinate - x,2) + pow(yCoordinate - y,2));
 }
 
+void City::toString()
+{
+	cout << cityName << " " << xCoordinate << " " << yCoordinate << endl;
+}

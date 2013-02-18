@@ -27,6 +27,7 @@ public:
 	bool getVisit(void);
 	bool getOmmission(void);
 	bool getEnd(void);
+	void toString();
 
 private:
 	//Methods
