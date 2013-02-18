@@ -100,11 +100,8 @@ void Map::mapCities()
 		ssLoc >> cityName;
 		ssLoc >> locX;
 		ssLoc >> locY;
-<<<<<<< HEAD
 		ssLoc.clear();
-=======
-		ssLoc.clear(); //clear stream to capture next input string, 
->>>>>>> rolled back changes
+
 
 		City city(cityName, locX, locY);
 		cities.push_back(city);
@@ -153,16 +150,10 @@ void Map::mapCities()
 						temp = *itLoc;
 						ssTemp << (*itLoc);
 						ssTemp >> tempNeighbor;
-<<<<<<< HEAD
-						ssTemp >> tempLoc; //no function, only used to clear the streambuffer
-						ssTemp >> tempLoc; //no function, only used to clear the streambuffer
-						ssTemp.clear();
-						//cout << temp << " " ;
-		
-=======
-						ssTemp.str(""); //clear stream of any input that is left
+						ssTemp >> tempLoc; //only used to clear buffer
+						ssTemp >> tempLoc; //only way that I could make it work
+						ssTemp.clear(); //clear stream of any input that is left
 
->>>>>>> rolled back changes
 						//if this is the neighbor, add it to the city
 						if(tempNeighbor.compare(neighbor) == 0)
 						{			
@@ -170,11 +161,7 @@ void Map::mapCities()
 							ssLoc >> neighborCity;
 							ssLoc >> locX;
 							ssLoc >> locY;
-<<<<<<< HEAD
-							ssLoc.clear();
-=======
-							//ssLoc.str(""); 
->>>>>>> rolled back changes
+							ssLoc.clear(); 
 
 							(*itCity).addNeighbor(neighborCity, locX, locY); 
 						}
