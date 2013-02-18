@@ -20,6 +20,8 @@ int main ( )
 	cout << "You entered: " << fileName << endl;
 	map.setConnections(fileName);
 
+	map.mapCities();
+
 	//myFile.open(fileName);
 
 	//if(!myFile) //verify file could be opened

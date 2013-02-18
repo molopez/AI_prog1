@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <sstream>
 using namespace std;
 
 #include "Map.h" 
@@ -78,14 +79,35 @@ int Map::setConnections(string fileName)
 
 void Map::mapCities()
 {
-	string cityName, locX, locY;
+	string cityName, temp;
+	int locX, locY; 
 
 	cout << "locations Building:" << endl;
-	for (vector<string>::iterator it = locations.begin() ; it != locations.end(); ++it)
+	for (vector<string>::iterator it = locations.begin() ; it != locations.end(); it++)
 	{
-		//cout << ' ' << *it;
-		//cout << '\n';
+		temp = *it;
+		//cout << temp << " " ;
+		
+		if(temp.compare("END") == 0)
+			break;
+		
+		stringstream ss(*it);
+		ss >> cityName;
+		ss >> locX;
+		ss >> locY;
+
+		City city(cityName, locX, locY);
+		cities.push_back(city);
+		
+		cout << cityName << " " << locX << " " << locY << endl;
 	}
+
+	/*cout << "connections contains:" << endl;
+		for (vector<string>::iterator it = connections.begin() ; it != connections.end(); ++it)
+			{
+				cout << ' ' << *it;
+				cout << '\n';
+			}*/
 }
 
 int Map::findPath(string start, string finish, string omit)
