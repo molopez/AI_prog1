@@ -51,10 +51,25 @@ bool  City::getEnd(void)
 
 int  City::calculateDistance(int x, int y)
 {
-	return sqrt(pow(xCoordinate - x,2) + pow(yCoordinate - y,2));
+	return (int)sqrt(pow(xCoordinate - x,2) + pow(yCoordinate - y,2));
 }
 
 void City::toString()
 {
 	cout << cityName << " " << xCoordinate << " " << yCoordinate << endl;
+}
+
+string City::getCityName()
+{
+	return cityName;
+}
+
+void City::printNeighbors()
+{
+	cout << cityName << " neighbors: ";
+
+	for(map<string,int>::iterator it = Neighbor.begin(); it != Neighbor.end(); ++it)
+	{
+		cout << it->first << " " ;
+	}
 }

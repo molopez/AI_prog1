@@ -28,6 +28,9 @@ public:
 	bool getOmmission(void);
 	bool getEnd(void);
 	void toString();
+	string getCityName();
+	void printNeighbors();
+	
 
 private:
 	//Methods
