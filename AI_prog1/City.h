@@ -17,12 +17,12 @@ public:
 	void addNeighbor(string, int, int);
 	void setVisit(bool);
 	void setOmission(bool);
-	void setEnd(bool deadEnd);
+	void setDeadEnd(bool deadEnd);
 	void setDistanceTraveled(int);
 	void setPreviousCity(string);
 	bool getVisit(void);
 	bool getOmmission(void);
-	bool getEnd(void);
+	bool getDeadEnd(void);
 	string getPreviousCity(void);
 	int getDistanceTraveled(void);
 	void toString(void);

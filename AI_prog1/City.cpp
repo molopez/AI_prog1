@@ -29,7 +29,7 @@ void City::setOmission(bool omitted)
 	this->omitted = omitted;
 }
 
-void City::setEnd(bool deadEnd)
+void City::setDeadEnd(bool deadEnd)
 {
 	this->deadEnd = deadEnd;
 }
@@ -54,7 +54,7 @@ bool  City::getOmmission(void)
 	return omitted;
 }
 
-bool  City::getEnd(void)
+bool  City::getDeadEnd(void)
 {
 	return deadEnd;
 }
