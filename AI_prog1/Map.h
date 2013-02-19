@@ -13,7 +13,7 @@ private:
 	vector<string> locations;
 	vector<City> cities;
 	list<City> path;
-	map<City, int> heuristics;
+	map<string, int> heuristics;
 	bool pathFound;
 	
 public: 
@@ -49,7 +49,7 @@ public:
 private:
 	//computes the straight line distance from
 	//a city to the ending city
-	int heuristicDistance(City, City);
+	int heuristicDistance(string, string);
 
 	//pass in the name of the city
 	//and returns its neighbors
