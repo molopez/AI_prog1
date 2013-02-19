@@ -244,6 +244,8 @@ int Map::findPath(string start, string finish, string omit)
 			//setupHeuristic(it->first, it->second);
 		}
 
+		//if the heuristics map structure is empty
+		//then we did not find a path
 		if(heuristics.empty())
 		{
 			pathFound = false;
@@ -269,24 +271,59 @@ int heuristicDistance(City a, City b)
 
 map<string, int> Map::getNeighborCities(string cityName)
 {
-	for (vector<City>::iterator it = cities.begin(); it != cities.end(); ++it)
+	/*for (vector<City>::iterator it = cities.begin(); it != cities.end(); ++it)
 	{
 		if(cityName.compare(it->getCityName()) == 0)
 		{
 			return it->getNeighbors();
 		}
-	}
+	}*/
+
+	City city = getCity(cityName);
+
+	return city.getNeighbors();
 
 	 map<string, int> empty;
 	 return empty;
 }
 
-void Map::setupHeuristic(string neighbor, int distanceTraveled)
+void Map::setupHeuristic(string neighbor, int distFromPrevCity, string prevCity, string endCity)
 {
+	int sld, dt, heuristicDist;
+
+	City thisNeighbor = getCity(neighbor); //get the neighbor city
+
+	if(!thisNeighbor.getOmmission() || !thisNeighbor.getDeadEnd()) //verify that the city is not omitted or a deadend
+	{
+		City previousCity = getCity(prevCity); //get the previous city from neighbor
+
+		City endingCity = getCity(endCity); //get the ending city
+
+		sld = heuristicDistance(thisNeighbor, endingCity); //find the straigh line distance form the neighbor city to the ending city
+		dt = previousCity.getDistanceTraveled() + distFromPrevCity; //find the distance that would be traveled if this path is shosen paths
+		heuristicDist = sld + dt; //this is the distance used for our huristic
+		
+		thisNeighbor.setPreviousCity(prevCity); //let this neighbor know from which city we arrived to it
+		thisNeighbor.setDistanceTraveled(dt); //this is the total distances traveled through this path so far
+
+		heuristics.insert(pair<City, int>(thisNeighbor, heuristicDist)); //add the city and the heuristic distance to the map structure
+																		//that is holding our cities to choose a from to form the path
+	}
 
 }
 
 string Map::getNextCity()
 {
 	return "";
+}
+
+City Map::getCity(string cityName)
+{
+	for (vector<City>::iterator it = cities.begin(); it != cities.end(); ++it)
+	{
+		if(cityName.compare(it->getCityName()) == 0)
+		{
+			return *it;
+		}
+	}
 }

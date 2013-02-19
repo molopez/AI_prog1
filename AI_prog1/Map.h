@@ -54,13 +54,16 @@ private:
 	map<string, int> getNeighborCities(string);
 
 	//for each adjacent(neighbor) city
-	//pass the city name and distance from current city
+	//pass the city, distance from current city, the current city and the ending city
 	//Method will calculate the SLD + DT and add the 
 	//city and the heuristic distance to the 
 	//heuristics map structure
-	void setupHeuristic(string, int);
+	void setupHeuristic(string, int, string, string);
 
 	//finds the next city that would give us the
 	//next shortest distance to travel through
 	string getNextCity();
+
+	//returns the City object you are looking for
+	City getCity(string);
 };
