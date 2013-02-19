@@ -10,6 +10,7 @@ class City
 {
 public:
 	//Constructors
+	City();
 	City(string, int, int);
 	~City(void);
 

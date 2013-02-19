@@ -47,6 +47,8 @@ public:
 	void printMap();
 
 private:
+	//computes the straight line distance from
+	//a city to the ending city
 	int heuristicDistance(City, City);
 
 	//pass in the name of the city

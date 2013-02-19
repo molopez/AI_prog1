@@ -1,5 +1,7 @@
 #include "City.h"
 
+City::City(){}
+
 City::City(string cityName, int x, int y)
 {
 	this->cityName = cityName;
@@ -71,7 +73,7 @@ int City::getDistanceTraveled(void)
 
 int  City::calculateDistance(int x, int y)
 {
-	return sqrt(pow(xCoordinate - x,2) + pow(yCoordinate - y,2));
+	return (int)sqrt(pow(xCoordinate - x,2) + pow(yCoordinate - y,2));
 }
 
 void City::toString(void)

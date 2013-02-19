@@ -301,12 +301,12 @@ void Map::setupHeuristic(string neighbor, int distFromPrevCity, string prevCity,
 
 		sld = heuristicDistance(thisNeighbor, endingCity); //find the straigh line distance form the neighbor city to the ending city
 		dt = previousCity.getDistanceTraveled() + distFromPrevCity; //find the distance that would be traveled if this path is shosen paths
-		heuristicDist = sld + dt; //this is the distance used for our huristic
+		//heuristicDist = sld + dt; //this is the distance used for our huristic
 		
 		thisNeighbor.setPreviousCity(prevCity); //let this neighbor know from which city we arrived to it
 		thisNeighbor.setDistanceTraveled(dt); //this is the total distances traveled through this path so far
 
-		heuristics.insert(pair<City, int>(thisNeighbor, heuristicDist)); //add the city and the heuristic distance to the map structure
+		//heuristics.insert(pair<City, int>(thisNeighbor, heuristicDist)); //add the city and the heuristic distance to the map structure
 																		//that is holding our cities to choose a from to form the path
 	}
 
@@ -319,11 +319,15 @@ string Map::getNextCity()
 
 City Map::getCity(string cityName)
 {
+	City city;
+
 	for (vector<City>::iterator it = cities.begin(); it != cities.end(); ++it)
 	{
 		if(cityName.compare(it->getCityName()) == 0)
 		{
-			return *it;
+			city = *it;
 		}
 	}
+
+	return city;
 }
