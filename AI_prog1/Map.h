@@ -14,6 +14,7 @@ private:
 	vector<City> cities;
 	list<City> path;
 	map<City, int> heuristics;
+	bool pathFound;
 	
 public: 
 	Map();
@@ -51,4 +52,15 @@ private:
 	//pass in the name of the city
 	//and returns its neighbors
 	map<string, int> getNeighborCities(string);
+
+	//for each adjacent(neighbor) city
+	//pass the city name and distance from current city
+	//Method will calculate the SLD + DT and add the 
+	//city and the heuristic distance to the 
+	//heuristics map structure
+	void setupHeuristic(string, int);
+
+	//finds the next city that would give us the
+	//next shortest distance to travel through
+	string getNextCity();
 };

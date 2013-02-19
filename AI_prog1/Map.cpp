@@ -192,7 +192,7 @@ int Map::findPath(string start, string finish, string omit)
 	{
 		if(it->getCityName() == start) //We got the initial city
 		{
-			it->setVisit = true;
+			it->setVisit(true);
 			startExists = true;	
 		}
 
@@ -201,7 +201,7 @@ int Map::findPath(string start, string finish, string omit)
 			finishExists = true;			
 		}
 
-		if(it->getCityName() == finish) // We got the omited city
+		if(it->getCityName() == omit) // We got the omited city
 		{
 			omitExists = true;
 		}
@@ -211,13 +211,13 @@ int Map::findPath(string start, string finish, string omit)
 		if(!startExists)
 		{
 			cout << start << " is not found. Unable to proceed." << endl;
-			exit;
+			exit(-1);
 		}
 
 		if(!finishExists)
 		{
 			cout << finish << " is not found. Unable to proceed." << endl;
-			exit;
+			exit(-1);
 		}
 
 		if(!omitExists)
@@ -228,7 +228,32 @@ int Map::findPath(string start, string finish, string omit)
 	}
 
 
-	
+	string currentCity = start, endCity = finish, omitted = omit;
+	map<string, int> currentNeighbors;
+
+	//A* Algorithm functionality
+	while(currentCity != endCity)
+	{
+		//get the adjacent cities to the current city that we are on
+		currentNeighbors = getNeighborCities(currentCity);
+
+		//iterate through the adjacent cities and set up the heuristics map structure
+		for(map<string, int>::iterator it = currentNeighbors.begin(); it != currentNeighbors.end(); ++it)
+		{
+			//adds neighbors to the heuristics map structure
+			//setupHeuristic(it->first, it->second);
+		}
+
+		if(heuristics.empty())
+		{
+			pathFound = false;
+			return -1;
+		}
+		
+		//currentCity = getNextCity();
+	}
+
+	pathFound = true;
 	return 0;
 }
 
@@ -239,7 +264,7 @@ void Map::showPath()
 
 int heuristicDistance(City a, City b)
 {
-	return sqrt(pow((a.getXCoordinate() - b.getXCoordinate()),2) + pow((a.getYCoordinate() - b.getYCoordinate()),2));
+	return (int)sqrt(pow((a.getXCoordinate() - b.getXCoordinate()),2) + pow((a.getYCoordinate() - b.getYCoordinate()),2));
 }
 
 map<string, int> Map::getNeighborCities(string cityName)
@@ -254,4 +279,14 @@ map<string, int> Map::getNeighborCities(string cityName)
 
 	 map<string, int> empty;
 	 return empty;
+}
+
+void Map::setupHeuristic(string neighbor, int distanceTraveled)
+{
+
+}
+
+string Map::getNextCity()
+{
+	return "";
 }
