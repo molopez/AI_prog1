@@ -186,6 +186,8 @@ void Map::printMap()
 
 int Map::findPath(string start, string finish, string omit)
 {
+	startCity = start; endCity = finish; omitCity = omit;
+
 	bool startExists = false, finishExists = false, omitExists = false;
 
 	for(vector<City>::iterator it = cities.begin(); it != cities.end(); ++it)
@@ -228,7 +230,7 @@ int Map::findPath(string start, string finish, string omit)
 	}
 
 
-	string currentCity = start, endCity = finish, omitted = omit;
+	string currentCity = start;
 	map<string, int> currentNeighbors;
 
 	//A* Algorithm functionality
@@ -255,13 +257,27 @@ int Map::findPath(string start, string finish, string omit)
 		currentCity = getNextCity();
 	}
 
+	buildPath();
 	pathFound = true;
 	return 0;
 }
 
 void Map::showPath()
 {
-
+	if(pathFound)
+	{
+		for(list<string>::iterator it = path.begin(); it != path.end(); ++it)
+		{
+			if(it++ != path.end())
+			{
+				cout << *it << " -> " << *it++ << endl;
+			}
+		}
+	}
+	else
+	{
+		cout << "No path was found from: " << startCity << " to: " << endCity << endl; 
+	}
 }
 
 int Map::heuristicDistance(City a, City b)
@@ -343,4 +359,20 @@ City Map::getCity(string cityName)
 	}
 
 	return city;
+}
+
+void Map::buildPath()
+{
+	City start, end, nextCity;
+	
+	end = getCity(endCity);
+	start = getCity(startCity);
+	nextCity = end;
+
+	while(nextCity.getCityName() != start.getCityName())
+	{
+		path.push_front(nextCity.getCityName());
+		nextCity = getCity(nextCity.getPreviousCity());
+	}
+	path.push_front(nextCity.getCityName());	
 }

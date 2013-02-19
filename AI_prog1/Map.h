@@ -12,8 +12,9 @@ private:
 	vector<string> connections;
 	vector<string> locations;
 	vector<City> cities;
-	list<City> path;
+	list<string> path;
 	map<string, int> heuristics;
+	string startCity, endCity, omitCity;
 	bool pathFound;
 	
 public: 
@@ -68,4 +69,8 @@ private:
 
 	//returns the City object you are looking for
 	City getCity(string);
+	
+	//builds the list with the cities in the path
+	//that we are looking for
+	void buildPath();
 };
