@@ -13,6 +13,7 @@ private:
 	vector<string> locations;
 	vector<City> cities;
 	list<City> path;
+	map<City, int> heuristics;
 	
 public: 
 	Map();
@@ -44,5 +45,10 @@ public:
 
 	void printMap();
 
+private:
 	int heuristicDistance(City, City);
+
+	//pass in the name of the city
+	//and returns its neighbors
+	map<string, int> getNeighborCities(string);
 };

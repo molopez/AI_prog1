@@ -103,3 +103,8 @@ int City::getYCoordinate(void)
 {
 	return yCoordinate;
 }
+
+map<string, int> City::getNeighbors()
+{
+	return Neighbor;
+}

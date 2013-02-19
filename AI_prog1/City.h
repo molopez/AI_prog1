@@ -30,6 +30,11 @@ public:
 	void printNeighbors(void);
 	int getXCoordinate(void);
 	int getYCoordinate(void);
+
+	//this functions will return the 
+	//map structure that contains the
+	//adjacent(neighbor) cities
+	map<string, int> getNeighbors();
 	
 
 private:

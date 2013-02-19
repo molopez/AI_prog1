@@ -226,6 +226,9 @@ int Map::findPath(string start, string finish, string omit)
 		}
 
 	}
+
+
+	
 	return 0;
 }
 
@@ -237,4 +240,18 @@ void Map::showPath()
 int heuristicDistance(City a, City b)
 {
 	return sqrt(pow((a.getXCoordinate() - b.getXCoordinate()),2) + pow((a.getYCoordinate() - b.getYCoordinate()),2));
+}
+
+map<string, int> Map::getNeighborCities(string cityName)
+{
+	for (vector<City>::iterator it = cities.begin(); it != cities.end(); ++it)
+	{
+		if(cityName.compare(it->getCityName()) == 0)
+		{
+			return it->getNeighbors();
+		}
+	}
+
+	 map<string, int> empty;
+	 return empty;
 }
