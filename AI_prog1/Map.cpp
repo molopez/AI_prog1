@@ -264,13 +264,13 @@ void Map::showPath()
 
 }
 
-int Map::heuristicDistance(string city_a, string city_b)
+int Map::heuristicDistance(City a, City b)
 {
-	City a, b;
+	/*City a, b;
 
 	a = getCity(city_a);
 	b = getCity(city_b);
-
+*/
 	return (int)sqrt(pow((a.getXCoordinate() - b.getXCoordinate()),2) + pow((a.getYCoordinate() - b.getYCoordinate()),2));
 }
 
@@ -302,16 +302,16 @@ void Map::setupHeuristic(string neighbor, int distFromPrevCity, string prevCity,
 	{
 		City previousCity = getCity(prevCity);								 //get the previous city from neighbor
 
-		//City endingCity = getCity(endCity);									 //get the ending city
+		City endingCity = getCity(endCity);									 //get the ending city
 
-		sld = heuristicDistance(neighbor, endCity);					 //find the straigh line distance form the neighbor city to the ending city
+		sld = heuristicDistance(thisNeighbor, endingCity);							 //find the straigh line distance form the neighbor city to the ending city
 		dt = previousCity.getDistanceTraveled() + distFromPrevCity;			 //find the distance that would be traveled if this path is shosen paths
 		heuristicDist = sld + dt; //this is the distance used for our huristic
 		
 		thisNeighbor.setPreviousCity(prevCity);								 //let this neighbor know from which city we arrived to it
 		thisNeighbor.setDistanceTraveled(dt);								 //this is the total distances traveled through this path so far
 
-		heuristics.insert(pair<string, int>(neighbor, heuristicDist));	 //add the city and the heuristic distance to the map structure
+		heuristics.insert(pair<string, int>(neighbor, heuristicDist));		 //add the city and the heuristic distance to the map structure
 																			 //that is holding our cities to choose a from to form the path
 	}
 

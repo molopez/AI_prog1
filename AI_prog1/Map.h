@@ -49,7 +49,7 @@ public:
 private:
 	//computes the straight line distance from
 	//a city to the ending city
-	int heuristicDistance(string, string);
+	int heuristicDistance(City, City);
 
 	//pass in the name of the city
 	//and returns its neighbors
