@@ -9,30 +9,36 @@ using namespace std;
 class City
 {
 public:
-	//Properties
-	string cityName;
-	int xCoordinate, yCoordinate;
-	bool visited, omitted, deadEnd;
-	map<string,int> Neighbor;
-
 	//Constructors
 	City(string, int, int);
 	~City(void);
 
 	//Methods
 	void addNeighbor(string, int, int);
-	void setVisit(bool visited);
-	void setOmission(bool omitted);
+	void setVisit(bool);
+	void setOmission(bool);
 	void setEnd(bool deadEnd);
+	void setDistanceTraveled(int);
+	void setPreviousCity(string);
 	bool getVisit(void);
 	bool getOmmission(void);
 	bool getEnd(void);
-	void toString();
-	string getCityName();
-	void printNeighbors();
+	string getPreviousCity(void);
+	int getDistanceTraveled(void);
+	void toString(void);
+	string getCityName(void);
+	void printNeighbors(void);
+	int getXCoordinate(void);
+	int getYCoordinate(void);
 	
 
 private:
+	//Properties
+	string cityName, previousCity;
+	int xCoordinate, yCoordinate, distanceTraveled;
+	bool visited, omitted, deadEnd;
+	map<string,int> Neighbor;
+
 	//Methods
 	int calculateDistance(int,int);
 };

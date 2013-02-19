@@ -43,4 +43,6 @@ public:
 	void showPath();	
 
 	void printMap();
+
+	int heuristicDistance(City, City);
 };

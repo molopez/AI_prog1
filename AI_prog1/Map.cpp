@@ -186,6 +186,46 @@ void Map::printMap()
 
 int Map::findPath(string start, string finish, string omit)
 {
+	bool startExists = false, finishExists = false, omitExists = false;
+
+	for(vector<City>::iterator it = cities.begin(); it != cities.end(); ++it)
+	{
+		if(it->getCityName() == start) //We got the initial city
+		{
+			it->setVisit = true;
+			startExists = true;	
+		}
+
+		if(it->getCityName() == finish) //We got the ending city
+		{
+			finishExists = true;			
+		}
+
+		if(it->getCityName() == finish) // We got the omited city
+		{
+			omitExists = true;
+		}
+	}
+
+	{// Response if one of the cities is not in the vector
+		if(!startExists)
+		{
+			cout << start << " is not found. Unable to proceed." << endl;
+			exit;
+		}
+
+		if(!finishExists)
+		{
+			cout << finish << " is not found. Unable to proceed." << endl;
+			exit;
+		}
+
+		if(!omitExists)
+		{
+			cout << omit << " is not found. We'll proceed without omissions" << endl;
+		}
+
+	}
 	return 0;
 }
 
@@ -194,3 +234,7 @@ void Map::showPath()
 
 }
 
+int heuristicDistance(City a, City b)
+{
+	return sqrt(pow((a.getXCoordinate() - b.getXCoordinate()),2) + pow((a.getYCoordinate() - b.getYCoordinate()),2));
+}

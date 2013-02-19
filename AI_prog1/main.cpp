@@ -22,7 +22,7 @@ int main ( )
 
 	map.mapCities();
 
-	//map.printMap();
+	map.printMap();
 
 	//myFile.open(fileName);
 
