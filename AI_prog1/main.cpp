@@ -13,14 +13,14 @@ int main ( )
 	//cout << "Please Enter a LOCATIONS file name" << endl;
 	//getline(cin, fileName);
 
-	fileName = "C:\Documents\GitHub\AI_prog1\txt_files\locsamp.txt";
+	fileName = "C:\\Users\\VA - Ivory\\Documents\\Visual Studio 2012\\USF\\AI\\AI_prog1\\txt_files\\locsamp.txt";
 	cout << "You entered: " << fileName << endl;
 	map.setLocations(fileName);
 
 	//cout << "Please Enter a CONNECTIONS file name" << endl;
 	//getline(cin, fileName);
 
-	fileName = "C:\Documents\GitHub\AI_prog1\txt_files\connsamp.txt";
+	fileName = "C:\\Users\\VA - Ivory\\Documents\\Visual Studio 2012\\USF\\AI\\AI_prog1\\txt_files\\connsamp.txt";
 	cout << "You entered: " << fileName << endl;
 	map.setConnections(fileName);
 
