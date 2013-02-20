@@ -40,8 +40,11 @@ int main ( )
 
 
 	//cout << "Enter city to omit: ";
-	//cin >> omit;
+	cin >> omit;
 	cout << "omit: " << omit << endl;
+
+	//cout << start << " " << finish << " " << omit << endl;
+
 
 	map.findPath(start, finish, omit);
 
