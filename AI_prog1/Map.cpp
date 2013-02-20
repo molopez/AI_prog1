@@ -239,8 +239,9 @@ int Map::findPath(string start, string finish, string omit)
 	//A* Algorithm functionality
 	while(currentCity != endCity)
 	{
-		City currCity = getCity(currentCity);
+		City currCity = getCity(currentCity);	
 		currCity.setVisit(true);
+		updateVisited(currCity);
 
 		//get the adjacent cities to the current city that we are on
 		currentNeighbors = getNeighborCities(currentCity);
@@ -270,13 +271,17 @@ int Map::findPath(string start, string finish, string omit)
 
 void Map::showPath()
 {
+	list<string>::iterator it2;
+
 	if(pathFound)
 	{
-		for(list<string>::iterator it = path.begin(); it != path.end(); ++it)
+		for(list<string>::iterator it = path.begin(); it != path.end(); it++)
 		{
-			if(it++ != path.end())
+			it2 = it;
+			it2++;
+			if(it2 != path.end())
 			{
-				cout << *it << " -> " << *it++ << endl;
+				cout << *it << " -> " << *it2 << endl;
 			}
 		}
 	}
@@ -293,29 +298,25 @@ int Map::heuristicDistance(City a, City b)
 
 map<string, int> Map::getNeighborCities(string cityName)
 {
-	/*for (vector<City>::iterator it = cities.begin(); it != cities.end(); ++it)
-	{
-		if(cityName.compare(it->getCityName()) == 0)
-		{
-			return it->getNeighbors();
-		}
-	}*/
-
 	City city = getCity(cityName);
 
-	return city.getNeighbors();
+	if(city.getNeighbors().empty())
+	{
+		city.setDeadEnd(true);
+		updateDeadEnd(city);
+	}
 
-	//map<string, int> empty;
-	//return empty;
+	return city.getNeighbors();
 }
 
 void Map::setupHeuristic(string neighbor, int distFromPrevCity, string prevCity, string endCity)
 {
 	int sld, dt, heuristicDist;
+	bool added = false;
 
 	City thisNeighbor = getCity(neighbor);									 //get the neighbor city
 
-	if(!thisNeighbor.getOmmission() || !thisNeighbor.getDeadEnd() || !thisNeighbor.getVisit())			 //verify that the city is not omitted or a deadend
+	if(!thisNeighbor.getOmmission() && !thisNeighbor.getDeadEnd() && !thisNeighbor.getVisit())			 //verify that the city is not omitted or a deadend
 	{
 		City previousCity = getCity(prevCity);								 //get the previous city from neighbor
 
@@ -325,19 +326,50 @@ void Map::setupHeuristic(string neighbor, int distFromPrevCity, string prevCity,
 		dt = previousCity.getDistanceTraveled() + distFromPrevCity;			 //find the distance that would be traveled if this path is shosen paths
 		heuristicDist = sld + dt; //this is the distance used for our huristic
 		
-		thisNeighbor.setPreviousCity(prevCity);								 //let this neighbor know from which city we arrived to it
-		thisNeighbor.setDistanceTraveled(dt);								 //this is the total distances traveled through this path so far
+		for(map<string, int>::iterator it = heuristics.begin(); it != heuristics.end(); ++it)
+		{
+			if(it->first.compare(neighbor) == 0)
+			{
+				if(it->second > heuristicDist)
+				{
+					thisNeighbor.setPreviousCity(prevCity);								//let this neighbor know from which city we arrived to it
+					updatePreviousCity(thisNeighbor);
+		
+					thisNeighbor.setDistanceTraveled(dt);								 //this is the total distances traveled through this path so far
+					updateDistanceTraveled(thisNeighbor);
 
-		heuristics.insert(pair<string, int>(neighbor, heuristicDist));		 //add the city and the heuristic distance to the map structure
-																			 //that is holding our cities to choose a from to form the path
+					added = true;
+					heuristics.erase(neighbor);
+					heuristics.insert(pair<string, int>(neighbor, heuristicDist));		 //add the city and the heuristic distance to the map structure
+																						 //that is holding our cities to choose a from to form the path
+					break;
+				}				
+			}
+		}
+
+		if(!added)
+		{
+
+			thisNeighbor.setPreviousCity(prevCity);								//let this neighbor know from which city we arrived to it
+			updatePreviousCity(thisNeighbor);
+			
+			thisNeighbor.setDistanceTraveled(dt);								 //this is the total distances traveled through this path so far
+			updateDistanceTraveled(thisNeighbor);
+
+			
+			heuristics.insert(pair<string, int>(neighbor, heuristicDist));		 //add the city and the heuristic distance to the map structure
+																				 //that is holding our cities to choose a from to form the path
+
+		/*cout<< "city: " << neighbor << " prev: " <<prevCity << "\tdt: " << previousCity.getDistanceTraveled()
+			<< "\tcity dt: " << dt << "\tsld: " <<sld << "\theurDist: " << heuristicDist << "\n" << endl; */
+		}	
 	}
-
 }
 
 string Map::getNextCity()
 {
 	int min = heuristics.begin() -> second;
-	string nextCity;
+	string nextCity = heuristics.begin() -> first;
 
 	for(map<string, int>::iterator it = heuristics.begin(); it != heuristics.end(); ++it)
 	{
@@ -347,8 +379,14 @@ string Map::getNextCity()
 			nextCity = it->first;
 		}
 	}
-
-	return nextCity;
+	
+	if(!heuristics.empty())
+	{
+		heuristics.erase(nextCity);
+		return nextCity;
+	}
+	else
+		return "NOCITY";
 }
 
 City Map::getCity(string cityName)
@@ -359,12 +397,60 @@ City Map::getCity(string cityName)
 	{
 		if(cityName.compare(it->getCityName()) == 0)
 		{
-			city = *it;
+			city = (*it);
 			break;
 		}
 	}
 
 	return city;
+}
+
+void Map::updateVisited(City updateCity)
+{
+	for (vector<City>::iterator it = cities.begin(); it != cities.end(); ++it)
+	{
+		if(updateCity.getCityName().compare(it->getCityName()) == 0)
+		{
+			it->setVisit(updateCity.getVisit());
+			break;
+		}
+	}
+}
+
+void Map::updatePreviousCity(City updateCity)
+{
+	for (vector<City>::iterator it = cities.begin(); it != cities.end(); ++it)
+	{
+		if(updateCity.getCityName().compare(it->getCityName()) == 0)
+		{
+			it->setPreviousCity(updateCity.getPreviousCity());
+			break;
+		}
+	}
+}
+
+void Map::updateDistanceTraveled(City updateCity)
+{
+	for (vector<City>::iterator it = cities.begin(); it != cities.end(); ++it)
+	{
+		if(updateCity.getCityName().compare(it->getCityName()) == 0)
+		{
+			it->setDistanceTraveled(updateCity.getDistanceTraveled());
+			break;
+		}
+	}
+}
+
+void Map::updateDeadEnd(City updateCity)
+{
+	for (vector<City>::iterator it = cities.begin(); it != cities.end(); ++it)
+	{
+		if(updateCity.getCityName().compare(it->getCityName()) == 0)
+		{
+			it->setVisit(updateCity.getDeadEnd());
+			break;
+		}
+	}
 }
 
 void Map::buildPath()

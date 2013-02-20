@@ -73,4 +73,12 @@ private:
 	//builds the list with the cities in the path
 	//that we are looking for
 	void buildPath();
+
+	void updateVisited(City);
+
+	void updatePreviousCity(City);
+
+	void updateDistanceTraveled(City);
+
+	void updateDeadEnd(City);
 };
