@@ -13,14 +13,22 @@ int main ( )
 	//cout << "Please Enter a LOCATIONS file name" << endl;
 	//getline(cin, fileName);
 
+<<<<<<< HEAD
 	fileName = "C:\\Users\\VA - Ivory\\Documents\\Visual Studio 2012\\USF\\AI\\AI_prog1\\txt_files\\locsamp.txt";
+=======
+	fileName = "C:\Documents\GitHub\AI_prog1\txt_files\locsamp.txt";
+>>>>>>> parent of cdb3aed... bugs fixed final version
 	cout << "You entered: " << fileName << endl;
 	map.setLocations(fileName);
 
 	//cout << "Please Enter a CONNECTIONS file name" << endl;
 	//getline(cin, fileName);
 
+<<<<<<< HEAD
 	fileName = "C:\\Users\\VA - Ivory\\Documents\\Visual Studio 2012\\USF\\AI\\AI_prog1\\txt_files\\connsamp.txt";
+=======
+	fileName = "C:\Documents\GitHub\AI_prog1\txt_files\connsamp.txt";
+>>>>>>> parent of cdb3aed... bugs fixed final version
 	cout << "You entered: " << fileName << endl;
 	map.setConnections(fileName);
 
@@ -33,6 +41,7 @@ int main ( )
 	//cout << "Enter starting city: " ;
 	//cin >> start;
 	cout << "start: " << start << endl;
+<<<<<<< HEAD
 
 	//cout << "Enter ending city: ";
 	//cin >> finish;
@@ -42,8 +51,17 @@ int main ( )
 	//cout << "Enter city to omit: ";
 	cin >> omit;
 	cout << "omit: " << omit << endl;
+=======
 
-	//cout << start << " " << finish << " " << omit << endl;
+	//cout << "Enter ending city: ";
+	//cin >> finish;
+	cout << "end: " << finish << endl;
+
+>>>>>>> parent of cdb3aed... bugs fixed final version
+
+	//cout << "Enter city to omit: ";
+	//cin >> omit;
+	cout << "omit: " << omit << endl;
 
 
 	map.findPath(start, finish, omit);
