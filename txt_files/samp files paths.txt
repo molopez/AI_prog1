@@ -1,5 +1,6 @@
-C:\Users\Mario Lopez\Documents\Visual Studio 2010\Projects\AI_prog1\txt_files\connsamp.txt
-C:\Users\Mario Lopez\Documents\Visual Studio 2010\Projects\AI_prog1\txt_files\locsamp.txt
+C:\Documents\GitHub\AI_prog1\txt_files\locsamp.txt
+
+C:\Documents\GitHub\AI_prog1\txt_files\connsamp.txt
 
 
 machine specific

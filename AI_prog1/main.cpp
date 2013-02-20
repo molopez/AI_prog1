@@ -10,19 +10,44 @@ int main ( )
 	ifstream myFile;
 	Map map;
 
-	cout << "Please Enter a LOCATIONS file name" << endl;
-	getline(cin, fileName);
+	//cout << "Please Enter a LOCATIONS file name" << endl;
+	//getline(cin, fileName);
+
+	fileName = "C:\Documents\GitHub\AI_prog1\txt_files\locsamp.txt";
 	cout << "You entered: " << fileName << endl;
 	map.setLocations(fileName);
 
-	cout << "Please Enter a CONNECTIONS file name" << endl;
-	getline(cin, fileName);
+	//cout << "Please Enter a CONNECTIONS file name" << endl;
+	//getline(cin, fileName);
+
+	fileName = "C:\Documents\GitHub\AI_prog1\txt_files\connsamp.txt";
 	cout << "You entered: " << fileName << endl;
 	map.setConnections(fileName);
 
 	map.mapCities();
 
-	map.printMap();
+	//map.printMap();
+
+	string start = "D5", finish = "A1", omit = "B5";
+	
+	//cout << "Enter starting city: " ;
+	//cin >> start;
+	cout << "start: " << start << endl;
+
+	//cout << "Enter ending city: ";
+	//cin >> finish;
+	cout << "end: " << finish << endl;
+
+
+	//cout << "Enter city to omit: ";
+	//cin >> omit;
+	cout << "omit: " << omit << endl;
+
+	map.findPath(start, finish, omit);
+
+	cout << "you entered: " << start << " " << finish << " " << omit << endl;
+
+	map.showPath();
 
 	//myFile.open(fileName);
 

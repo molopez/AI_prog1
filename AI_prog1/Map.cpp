@@ -205,8 +205,11 @@ int Map::findPath(string start, string finish, string omit)
 
 		if(it->getCityName() == omit) // We got the omited city
 		{
+			it->setOmission(true);
 			omitExists = true;
 		}
+		if(startExists && finishExists && omitExists)
+			break;
 	}
 
 	{// Response if one of the cities is not in the vector
@@ -236,6 +239,9 @@ int Map::findPath(string start, string finish, string omit)
 	//A* Algorithm functionality
 	while(currentCity != endCity)
 	{
+		City currCity = getCity(currentCity);
+		currCity.setVisit(true);
+
 		//get the adjacent cities to the current city that we are on
 		currentNeighbors = getNeighborCities(currentCity);
 
@@ -309,7 +315,7 @@ void Map::setupHeuristic(string neighbor, int distFromPrevCity, string prevCity,
 
 	City thisNeighbor = getCity(neighbor);									 //get the neighbor city
 
-	if(!thisNeighbor.getOmmission() || !thisNeighbor.getDeadEnd())			 //verify that the city is not omitted or a deadend
+	if(!thisNeighbor.getOmmission() || !thisNeighbor.getDeadEnd() || !thisNeighbor.getVisit())			 //verify that the city is not omitted or a deadend
 	{
 		City previousCity = getCity(prevCity);								 //get the previous city from neighbor
 

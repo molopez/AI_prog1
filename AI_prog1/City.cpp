@@ -1,6 +1,9 @@
 #include "City.h"
 
-City::City(){}
+City::City()
+{
+	
+}
 
 City::City(string cityName, int x, int y)
 {
@@ -10,6 +13,7 @@ City::City(string cityName, int x, int y)
 	visited = false;
 	omitted = false;
 	deadEnd = false;
+	distanceTraveled = 0;
 }
 
 City::~City(void)
